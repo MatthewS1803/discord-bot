@@ -2,64 +2,91 @@
  
 A small Discord bot built with [discord.py](https://discordpy.readthedocs.io/) that I made while practicing Python. It includes a playable Tic Tac Toe game with clickable buttons, where you play against a bot that picks random moves.
  
+## Features
+ 
+- **Game mode:** Single player. You play X against the bot, which plays O and picks a random open square each turn.
+- **Interaction method:** A 3x3 grid of Discord buttons. Click a square to make your move.
+- **Color-coded board:** Empty squares are grey, your X is blue, and the bot's O is red.
+- **Private games:** Only the player who started a game can click its board. Anyone else sees a private "This isn't your game!" message.
+- **Results:** The bot announces a win, a loss, or a tie, then locks the board.
+- **Extras:** A `!ping` health check and a `!button` demo that changes color when clicked.
+
+## Prerequisites
+ 
+- Python 3
+- [discord.py](https://pypi.org/project/discord.py/)
+- [python-dotenv](https://pypi.org/project/python-dotenv/)
+- A Discord account and a server where you can add a bot
+## Setup
+ 
+### 1. Create the bot in the Discord Developer Portal
+ 
+1. Go to the [Discord Developer Portal](https://discord.com/developers/applications) and create a **New Application**.
+2. Open the **Bot** tab and copy the bot token. Treat it like a password and never commit it.
+3. On the same tab, enable **Message Content Intent**. The bot needs it to read `!` commands.
+### 2. Invite the bot to your server
+ 
+In **OAuth2 > URL Generator**, select the `bot` scope and the permissions listed under [Required Bot Permissions](#required-bot-permissions). Open the generated URL and choose your server.
+ 
+### 3. Install and run
+ 
+```bash
+git clone https://github.com/MatthewS1803/discord-bot.git
+cd discord-bot
+pip install discord.py python-dotenv
+```
+ 
+Create a file named `.env` in the project folder:
+ 
+```
+DISCORD_TOKEN=your_token_here
+```
+ 
+Make sure `.env` is listed in `.gitignore`, then start the bot:
+ 
+```bash
+python discordBot.py
+```
+ 
+If you use [uv](https://docs.astral.sh/uv/), run `uv run discordBot.py` instead. A "Logged on as" message in the terminal means the bot is connected.
+ 
 ## Commands
  
 | Command   | What it does                                        |
 |-----------|-----------------------------------------------------|
-| `!ping`   | The bot replies with `pong`                         |
-| `!button` | Sends a button that changes color when clicked      |
-| `!ttt`    | Starts a Tic Tac Toe game on a 3x3 grid of buttons  |
+| `!ttt`    | Starts a Tic Tac Toe game against the bot           |
+| `!button` | Sends a demo button that turns green when clicked   |
+| `!ping`   | Replies `pong` to check that the bot is responsive  |
  
-Only the person who started a Tic Tac Toe game can play in it.
+## How to Play
  
-## Files
+1. Type `!ttt` in a channel the bot can see.
+2. Click any empty square to place your X.
+3. The bot answers by placing an O in a random open square.
+4. The first to get three in a row (across, down, or diagonal) wins. If the board fills up first, it's a tie.
+5. Games stop responding after about 3 minutes of inactivity (the default for Discord button views). Type `!ttt` again to start a new game.
+## Required Bot Permissions
  
-- `discordBot.py` - the bot, its commands, and the button interfaces
-- `game.py` - the game logic (`check_winner` and `is_board_full`)
-## Setup
+The code does not define a permission set, so grant the bot at least these in the channels where it will run:
  
-1. **Clone the repo**
-```
-   git clone https://github.com/YOUR-USERNAME/discord-bot.git
-   cd discord-bot
-```
+- View Channels
+- Send Messages
+- Read Message History
+Buttons are message components and need no extra permission.
  
-2. **Install dependencies**
-```
-   pip install discord.py python-dotenv
-```
-   Or, if you use [uv](https://docs.astral.sh/uv/):
-```
-   uv add discord.py python-dotenv
-```
+## Project Structure
  
-3. **Create a bot and get its token**
-   - Go to the [Discord Developer Portal](https://discord.com/developers/applications) and create an application.
-   - Open the **Bot** tab and copy the token (use **Reset Token** if needed).
-   - On the same tab, turn on **Message Content Intent**. The bot needs it to read commands.
-   - Use the **OAuth2** tab to generate an invite link with the `bot` scope and add the bot to your server.
-4. **Add your token**
-   Create a file named `.env` in the project folder:
-```
-   DISCORD_TOKEN=your-token-here
-```
-   No quotes and no spaces around the `=`. The `.env` file is listed in `.gitignore`, so it is never uploaded. Never share your token or commit it.
- 
-5. **Run the bot**
-```
-   python discordBot.py
-```
-   Or with uv:
-```
-   uv run discordBot.py
-```
- 
-   When it connects, the terminal prints `Logged on as <bot name>`.
- 
-## Credits
- 
-Parts of this code were adapted from [SOURCE NAME OR LINK]. Replace this line with where you got the code, and check that its license allows reuse.
+| File             | Purpose                                                  |
+|------------------|----------------------------------------------------------|
+| `discordBot.py`  | Bot setup, commands, and button interfaces               |
+| `game.py`        | Game logic (`check_winner`, `is_board_full`)             |
+| `.env`           | Your bot token (create this yourself, do not commit it)  |
  
 ## License
+
+This project is licensed under the MIT License. See
+
+## Credits
  
-Add a license if you want others to reuse your code, such as the MIT License. GitHub can add one for you when you create a new file named `LICENSE` in the repo.
+- Built with [discord.py](https://github.com/Rapptz/discord.py) and [python-dotenv](https://github.com/theskumar/python-dotenv).
+- CodeDex: Build a Discord Bot With Python(https://www.codedex.io/projects/build-a-discord-bot-with-python)
