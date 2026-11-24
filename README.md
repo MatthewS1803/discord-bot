@@ -88,7 +88,7 @@ Buttons are message components and need no extra permission.
 
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+This project is licensed under the MIT License. See [LICENSE](https://github.com/MatthewS1803/discord-bot/blob/master/LICENSE) for details.
 
 ## Credits
 
